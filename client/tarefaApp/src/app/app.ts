@@ -1,12 +1,63 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { FormsModule } from "@angular/forms";
+import { CommonModule } from "@angular/common";
 
+// definição da classe do componente que irá interagir com a API
 @Component({
-  selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.less'
+  selector: "app-root",
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: "./app.html",
 })
-export class App {
-  protected readonly title = signal('tarefaApp');
+// exporta a classe do componente para ser usada em outros lugares
+export class AppComponent {
+  api = "http://localhost:5097/tarefas";
+  // propriedades da classe pra armazenar as tarefas, editar tarefas, etc.
+  tarefas: any[] = [];
+
+  nova = {
+    titulo: "",
+    descricao: "",
+    status: "Pendente",
+  };
+
+  editando: any = null;
+  // injeção do HttpClient para fazer requisições à API
+  constructor(private http: HttpClient) {
+    this.load();
+  }
+  // carrega todas as tarefas da API e armazena na propriedade tarefas
+  load() {
+    this.http.get<any[]>(this.api).subscribe((res) => (this.tarefas = res));
+  }
+  // adiciona uma tarefa no banco de dados com a API usando post, depois limpa o formulário e recarrega a lista de tarefas
+  add() {
+    this.http.post(this.api, this.nova).subscribe(() => {
+      this.nova = { titulo: "", descricao: "", status: "Pendente" };
+      this.load();
+    });
+  }
+  // deleta uma tarefa usando o id dela na API, depois recarrega a lista de tarefas
+  delete(id: number) {
+    this.http.delete(`${this.api}/${id}`).subscribe(() => this.load());
+  }
+  // prepara a tarefa para edição criando uma cópia dela, para não editar diretamente na lista
+  editar(t: any) {
+    // cria cópia pra não editar direto na lista
+    this.editando = { ...t };
+  }
+  // salva as alterações da tarefa editada usando put na API, depois limpa a tarefa editada e recarrega a lista de tarefas
+  salvar() {
+    if (!this.editando) return;
+
+    this.http.put(`${this.api}/${this.editando.id}`, this.editando).subscribe(() => {
+      this.editando = null;
+      this.load();
+    });
+  }
+  // cancela a edição limpando a tarefa editada, sem salvar as alterações
+  cancelar() {
+    this.editando = null;
+  }
 }
