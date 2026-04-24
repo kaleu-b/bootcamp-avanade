@@ -1,0 +1,31 @@
+<li>
+  <div *ngIf="!isEditando">
+    <strong>{{ tarefa.titulo }}</strong>
+    <span *ngIf="tarefa.descricao"> - {{ tarefa.descricao }}</span>
+    <small>({{ tarefa.status }})</small>
+    <button (click)="onEditar()">
+      Editar
+    </button>
+    <button (click)="onDeletar()">
+      X
+    </button>
+  </div>
+  <div *ngIf="isEditando">
+    <input [(ngModel)]="editando.titulo" placeholder="Título">
+    <input [(ngModel)]="editando.descricao" placeholder="Descrição">
+    <select [(ngModel)]="editando.status">
+      <option>
+        Pendente
+      </option>
+      <option>
+        Concluida
+      </option>
+    </select>
+    <button (click)="onSalvar()">
+      Salvar
+    </button>
+    <button (click)="onCancelar()">
+      Cancelar
+    </button>
+  </div>
+</li>

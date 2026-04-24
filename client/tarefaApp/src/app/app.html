@@ -1,54 +1,13 @@
 <h1>
     Tarefas
 </h1>
-<h3>
-    Nova tarefa
-</h3>
-<input [(ngModel)]="nova.titulo" placeholder="Título">
-<input [(ngModel)]="nova.descricao" placeholder="Descrição">
-<select [(ngModel)]="nova.status">
-    <option>
-        Pendente
-    </option>
-    <option>
-        Concluida
-    </option>
-</select>
-<button (click)="add()">
-    Adicionar
-</button>
+<app-tarefa-form (adicionarTarefa)="add($event)"></app-tarefa-form>
 <hr>
-<h3>
-    Lista
-</h3>
-<ul>
-    <li *ngFor="let t of tarefas">
-        <div *ngIf="editando?.id !== t.id">
-            {{t.titulo}} - {{t.status}}
-            <button (click)="editar(t)">
-                Editar
-            </button>
-            <button (click)="delete(t.id)">
-                X
-            </button>
-        </div>
-        <div *ngIf="editando?.id === t.id">
-            <input [(ngModel)]="editando.titulo">
-            <input [(ngModel)]="editando.descricao">
-            <select [(ngModel)]="editando.status">
-                <option>
-                    Pendente
-                </option>
-                <option>
-                    Concluida
-                </option>
-            </select>
-            <button (click)="salvar()">
-                Salvar
-            </button>
-            <button (click)="cancelar()">
-                Cancelar
-            </button>
-        </div>
-    </li>
-</ul>
+<app-tarefa-list
+  [tarefas]="tarefas"
+  [editando]="editando"
+  (editar)="editar($event)"
+  (salvar)="salvar($event)"
+  (cancelar)="cancelar()"
+  (deletar)="delete($event)"
+></app-tarefa-list>

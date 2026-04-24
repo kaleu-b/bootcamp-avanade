@@ -1,0 +1,18 @@
+<div>
+  <h3>
+    Nova tarefa
+  </h3>
+  <input [(ngModel)]="nova.titulo" placeholder="Título">
+  <input [(ngModel)]="nova.descricao" placeholder="Descrição">
+  <select [(ngModel)]="nova.status">
+    <option>
+      Pendente
+    </option>
+    <option>
+      Concluida
+    </option>
+  </select>
+  <button (click)="add()">
+    Adicionar
+  </button>
+</div>
