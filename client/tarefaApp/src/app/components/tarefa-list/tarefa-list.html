@@ -1,0 +1,16 @@
+<div>
+  <h3>
+    Lista
+  </h3>
+  <ul>
+    <app-tarefa-item
+      *ngFor="let t of tarefas"
+      [tarefa]="t"
+      [editando]="editando"
+      (editar)="onEditar($event)"
+      (salvar)="onSalvar($event)"
+      (cancelar)="onCancelar()"
+      (deletar)="onDeletar($event)"
+    ></app-tarefa-item>
+  </ul>
+</div>

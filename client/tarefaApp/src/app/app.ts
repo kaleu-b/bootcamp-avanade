@@ -1,13 +1,14 @@
 import { ChangeDetectorRef, Component } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
+import { TarefaFormComponent } from "./components/tarefa-form/tarefa-form";
+import { TarefaListComponent } from "./components/tarefa-list/tarefa-list";
 
-// definição da classe do componente que irá interagir com a API
+// componente container que orquestra os componentes filhos
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, TarefaFormComponent, TarefaListComponent],
   templateUrl: "./app.html",
 })
 // exporta a classe do componente para ser usada em outros lugares
@@ -15,13 +16,6 @@ export class AppComponent {
   api = "http://localhost:5097/tarefas";
   // propriedades da classe pra armazenar as tarefas, editar tarefas, etc.
   tarefas: any[] = [];
-
-  nova = {
-    titulo: "",
-    descricao: "",
-    status: "Pendente",
-  };
-
   editando: any = null;
 
   // injeção do HttpClient e ChangeDetectorRef para fazer requisições à API e forçar atualização da view
@@ -38,9 +32,8 @@ export class AppComponent {
   }
 
   // adiciona uma tarefa no banco de dados com a API usando post, depois limpa o formulário e recarrega a lista de tarefas
-  add() {
-    this.http.post(this.api, this.nova).subscribe(() => {
-      this.nova = { titulo: "", descricao: "", status: "Pendente" };
+  add(nova: any) {
+    this.http.post(this.api, nova).subscribe(() => {
       this.load();
     });
   }
@@ -58,11 +51,11 @@ export class AppComponent {
   }
 
   // salva as alterações da tarefa editada usando put na API, depois limpa a tarefa editada e recarrega a lista de tarefas
-  salvar() {
-    if (!this.editando) return;
+  salvar(editando: any) {
+    if (!editando) return;
 
     this.http
-      .put(`${this.api}/${this.editando.id}`, this.editando)
+      .put(`${this.api}/${editando.id}`, editando)
       .subscribe(() => {
         this.editando = null;
         this.load();
