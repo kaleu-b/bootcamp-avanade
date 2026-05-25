@@ -1,7 +1,8 @@
-<div>
+<div class="FormContainer">
   <h3>
     Nova tarefa
   </h3>
+  <div class="FormItems">
   <input [(ngModel)]="nova.titulo" placeholder="Título">
   <input [(ngModel)]="nova.descricao" placeholder="Descrição">
   <select [(ngModel)]="nova.status">
@@ -15,4 +16,5 @@
   <button (click)="add()">
     Adicionar
   </button>
+</div>
 </div>
