@@ -37,18 +37,43 @@ Antes de rodar o projeto, certifique-se de ter instalado:
 ```text id="tree1"
 bootcamp-avanade/
 ├── backend/
-│   └── api/        -> API ASP.NET Core
+│   └── api/                       -> API ASP.NET Core
 │       ├── Program.cs
-│       ├── Migrations/ -> SQL
+│       ├── Migrations/            -> SQL
 │       ├── appsettings.json
-│       └── Tarefa.cs -> Classe Tarefa
+│       └── Tarefa.cs              -> Classe Tarefa
 │
 ├── client/
-│   └── tarefaApp/  -> Front-end Angular
+│   └── tarefaApp/                 -> Front-end Angular
 │       ├── src/
 │       │   ├── app/
+│       │   │   ├── components/    -> Componentes
+│       │   │   │   ├── tarefa-form/ -> Formulário de registro de tarefa
+│       │   │   │   │   ├── tarefa-form.html -> Formulário de criação
+│       │   │   │   │   ├── tarefa-form.less -> Folha de estilo
+│       │   │   │   │   └── tarefa-form.ts   -> Script
+│       │   │   │   │
+│       │   │   │   ├── tarefa-item/ -> Componente que mostra a tarefa individualmente
+│       │   │   │   │   ├── tarefa-item.html -> Exibe a tarefa
+│       │   │   │   │   ├── tarefa-item.less -> Folha de estilo
+│       │   │   │   │   └── tarefa-item.ts   -> Script
+│       │   │   │   │
+│       │   │   │   └── tarefa-list/ -> Componente que lista todas as tarefas
+│       │   │   │       ├── tarefa-list.html -> Lista de tarefas
+│       │   │   │       ├── tarefa-list.less -> Folha de estilo
+│       │   │   │       └── tarefa-list.ts   -> Script
+│       │   │   │
+│       │   │   ├── app.config.ts
+│       │   │   ├── app.html -> Reúne todos os componentes em uma tag
+│       │   │   ├── app.less
+│       │   │   ├── app.routes.ts
+│       │   │   ├── app.spec.ts
+│       │   │   └── app.ts
+│       │   │
+│       │   ├── index.html -> Página principal (index)
 │       │   ├── main.ts
-│       │   └── styles.less
+│       │   └── styles.less -> Folha de estilo global
+│       │
 │       ├── angular.json
 │       └── package.json
 │
