@@ -192,6 +192,13 @@ Execute a aplicação:
 ng serve
 ```
 
+Caso o passo anterior dê erro, tente instalar o angular com o seguinte comando:
+
+```bash
+npm install -g @angular/cli   
+```
+
+
 Nesse momento, o seu terminal ficará travado. Acesse no navegador o seguinte endereço:
 
 ```
